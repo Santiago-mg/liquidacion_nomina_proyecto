@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar Usuario</title>
+</head>
+<body>
+    <h1>Aquí eliminarás tu usuario en la base de datos</h1>
+    <form onsubmit="capturarCedula(event)">
+        <div class="form-group">
+            <label for="cedula">Cedula:</label>
+            <input type="text" id="cedula" name="cedula">
+        </div>
+        <button type="submit">Eliminar</button>
+    </form>
+    <div id="resultado"></div>
+    <script>
+        function capturarCedula(event) {
+            event.preventDefault(); // Evita el envío tradicional del formulario
+
+            // Crear un FormData a partir del formulario
+            let formData = new FormData(event.target);
+
+            // Enviar los datos al servidor Flask usando fetch
+            fetch('/capturar_cedula', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    document.getElementById('resultado').textContent = 'Error: ' + data.error;
+                } else {
+                    let resultado = `
+                        <h1>Se ha eliminado el usuario</h1>
+                        <p>${data.mensaje}</p>
+                    `;
+                    document.getElementById('resultado').innerHTML = resultado;
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                document.getElementById('resultado').textContent = 'Error al eliminar.';
+            });
+        }
+    </script> 
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Consulta de Registro de Nómina</title>
+</head>
+<body>
+    <h1>Consulta de Registro de Nómina</h1>
+    <form action="/consultar1" method="POST">
+        <label for="id_empleado">ID de Empleado:</label>
+        <input type="text" id="id_empleado" name="id_empleado" required>
+        <br>
+        <button type="submit">Consultar</button>
+    </form>
+
+    {% if datos_usuario %}
+        <h2>Resultado de Consulta</h2>
+        <table>
+            <tr>
+                <th>ID Empleado</th>
+                <th>Fecha Liquidación</th>
+                <th>Salario Base Mensual</th>
+                <th>Tiempo Laborado (Horas)</th>
+                <th>Tiempo Festivo Laborado (Días)</th>
+                <th>Horas Extra Diurnas</th>
+                <th>Horas Extra Nocturnas</th>
+                <th>Horas Extra Festivas</th>
+                <th>Tiempo Incapacidades (Días)</th>
+                <th>Tiempo Licencias no Remuneradas (Días)</th>
+            </tr>
+            <tr>
+                <td>{{ datos_usuario.ID_Empleado }}</td>
+                <td>{{ datos_usuario.Fecha_Liquidacion }}</td>
+                <td>{{ datos_usuario.Salario_Base_Mensual }}</td>
+                <td>{{ datos_usuario.Tiempo_Laborado_Horas }}</td>
+                <td>{{ datos_usuario.Tiempo_Festivo_Laborado_Dias }}</td>
+                <td>{{ datos_usuario.Horas_Extra_Diurnas }}</td>
+                <td>{{ datos_usuario.Horas_Extra_Nocturnas }}</td>
+                <td>{{ datos_usuario.Horas_Extra_Festivas }}</td>
+                <td>{{ datos_usuario.Tiempo_Incapacidades_Dias }}</td>
+                <td>{{ datos_usuario.Tiempo_Licencias_No_Remuneradas_Dias }}</td>
+            </tr>
+        </table>
+    {% elif mensaje %}
+        <p class="error">{{ mensaje }}</p>
+    {% endif %}
+</body>
+</html>
+
+
+
+
