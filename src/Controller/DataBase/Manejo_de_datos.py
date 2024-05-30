@@ -91,6 +91,9 @@ def eliminar_registro(id_empleado):
         if conexion is not None:
             cursor = conexion.cursor()
             cursor.execute("DELETE FROM LiquidacionesNomina WHERE ID_Empleado = %s", (id_empleado,))
+            if cursor.rowcount == 0:
+                    print("No se encontró ningún registro con el ID_Empleado proporcionado.")
+                    return False
             conexion.commit()
             print("Registro eliminado correctamente.")
             return True
